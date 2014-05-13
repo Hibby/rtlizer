@@ -34,11 +34,11 @@
 
 uint8_t *buffer;
 uint32_t dev_index = 0;
-uint32_t frequency = 98000000;
+uint32_t frequency = 144000000;
 uint32_t samp_rate = DEFAULT_SAMPLE_RATE;
 uint32_t buff_len = 2048;
 
-int fft_size = 320;
+int fft_size = 640;
 kiss_fft_cfg  fft_cfg;
 kiss_fft_cpx *fft_in;
 kiss_fft_cpx *fft_out;
@@ -82,7 +82,7 @@ gint keypress_cb(GtkWidget *widget, GdkEvent *event, gpointer data)
 		gtk_widget_destroy(widget);
 		break;
 
-	case GDK_KEY_Left:
+	case GDK_KEY_Right:
 		/* increase frequency */
         frequency += samp_rate/4;
         r = rtlsdr_set_center_freq(dev, frequency);
@@ -90,7 +90,7 @@ gint keypress_cb(GtkWidget *widget, GdkEvent *event, gpointer data)
             fprintf(stderr, "WARNING: Failed to set center freq.\n");
         break;
 
-	case GDK_KEY_Right:
+	case GDK_KEY_Left:
 		/* decrease frequency */
         frequency -= samp_rate/4;
         r = rtlsdr_set_center_freq(dev, frequency);
